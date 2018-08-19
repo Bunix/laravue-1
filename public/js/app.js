@@ -247,6 +247,7 @@ module.exports = function normalizeComponent (
         if (!date) return;
 
         //return moment(date).format('MMMM Do YYYY');
+        //moment.locale('pt');
         return moment(date).format('L');
     },
     formatDateTime: function formatDateTime(date) {
@@ -27785,6 +27786,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -27802,8 +27804,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             daten: {},
             filterDataForm: {
-                //sortBy : 'start_date',
-                //order: 'desc',
+                sortBy: 'datum',
+                order: 'asc',
                 //status: '',
                 //title: '',
                 pageLength: 5
@@ -27849,7 +27851,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     filters: {
         moment: function moment(date) {
-            return __WEBPACK_IMPORTED_MODULE_2__services_helper__["a" /* default */].formatDate(date);
+            var d = __WEBPACK_IMPORTED_MODULE_2__services_helper__["a" /* default */].formatDate(date);
+            debugger;
+            var dx = d.split("/");
+            return dx[1] + "/" + dx[0] + "/" + dx[2];
         }
     }
 });
@@ -27940,7 +27945,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -28003,6 +28008,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -28013,6 +28023,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       saudeForm: new Form({
         datum: "",
+        uhrzeit: {
+          HH: "06",
+          mm: "00"
+        },
+        //uhrzeit: "",
         gewicht: 0,
         diastole: 0,
         systole: 0,
@@ -28021,7 +28036,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
 
-  components: { datepicker: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker___default.a },
+  components: { datepicker: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker___default.a, VueTimepicker: __WEBPACK_IMPORTED_MODULE_1_vue2_timepicker___default.a },
   props: ["id"],
   mounted: function mounted() {
     if (this.id) this.getValues();
@@ -28030,15 +28045,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     proceed: function proceed() {
       this.saudeForm.datum = moment(this.saudeForm.datum).format("YYYY-MM-DD");
+      debugger;
+      //let hh = $("ul.hours").find(".active").html();
+      //let mm = $("ul.minutes").find(".active").html();
+      var hh = this.saudeForm.uhrzeit.HH;
+      var mm = this.saudeForm.uhrzeit.mm;
+      this.saudeForm.uhrzeit = hh + ":" + mm + ":00";
       if (this.id) this.updateData();else this.storeData();
     },
     storeData: function storeData() {
       var _this = this;
 
       this.saudeForm.post("/api/saude").then(function (response) {
+        debugger;
         toastr["success"](response.message);
         _this.$emit("completed", response.saude);
       }).catch(function (response) {
+        debugger;
         toastr["error"](response.message);
       });
     },
@@ -28047,6 +28070,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       axios.get("/api/saude/" + this.id).then(function (response) {
         _this2.saudeForm.datum = response.data.datum;
+        _this2.saudeForm.uhrzeit = response.data.uhrzeit;
         _this2.saudeForm.gewicht = response.data.gewicht;
         _this2.saudeForm.diastole = response.data.diastole;
         _this2.saudeForm.systole = response.data.systole;
@@ -29264,6 +29288,30 @@ var render = function() {
             1
           ),
           _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
+            [
+              _c("label", { attrs: { for: "" } }, [_vm._v("Uhrzeit")]),
+              _vm._v(" "),
+              _c("vue-timepicker", {
+                attrs: {
+                  "hide-clear-button": "",
+                  format: "HH:mm",
+                  bootstrapStyling: true
+                },
+                model: {
+                  value: _vm.saudeForm.uhrzeit,
+                  callback: function($$v) {
+                    _vm.$set(_vm.saudeForm, "uhrzeit", $$v)
+                  },
+                  expression: "saudeForm.uhrzeit"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "" } }, [_vm._v("Gewicht")]),
             _vm._v(" "),
@@ -29504,6 +29552,10 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("td", {
+                                  domProps: { textContent: _vm._s(d.uhrzeit) }
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
                                   domProps: { textContent: _vm._s(d.gewicht) }
                                 }),
                                 _vm._v(" "),
@@ -29730,6 +29782,8 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("Datum")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Uhrzeit")]),
         _vm._v(" "),
         _c("th", [_vm._v("Gewicht")]),
         _vm._v(" "),

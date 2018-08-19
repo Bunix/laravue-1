@@ -20,6 +20,7 @@ class CreateTableSaude extends Migration
             $table->integer('user_id')->unsigned();
             //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->date('datum');
+            $table->time('uhrzeit');
             $table->decimal('gewicht',8,3);
             $table->integer('diastole');
             $table->integer('systole');

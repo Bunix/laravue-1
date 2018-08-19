@@ -51,6 +51,7 @@
                                     <thead>
                                         <tr>
                                             <th>Datum</th>
+                                            <th>Uhrzeit</th>
                                             <th>Gewicht</th>
                                             <th>Diastole</th>
                                             <th>Systole</th>
@@ -62,7 +63,7 @@
                                         <tr v-for="d in daten.data">
 
                                             <td>{{ d.datum | moment }}</td>
-
+                                            <td v-text="d.uhrzeit"></td>
                                             <td v-text="d.gewicht"></td>
                                             <td v-text="d.diastole"></td>
                                             <td v-text="d.systole"></td>
@@ -126,8 +127,8 @@ export default {
         return {
             daten: {},
             filterDataForm: {
-                //sortBy : 'start_date',
-                //order: 'desc',
+                sortBy : 'datum',
+                order: 'desc',
                 //status: '',
                 //title: '',
                 pageLength: 5
@@ -176,7 +177,10 @@ export default {
 
     filters: {
         moment(date) {
-            return helper.formatDate(date);
+            let d = helper.formatDate(date);
+            debugger;
+            let dx = d.split("/"); 
+            return dx[1]+"/"+dx[0]+"/"+dx[2];          
         }
     }
 };

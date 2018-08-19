@@ -60,6 +60,7 @@ export default {
             return;
 
         //return moment(date).format('MMMM Do YYYY');
+        //moment.locale('pt');
         return moment(date).format('L');
     },
 

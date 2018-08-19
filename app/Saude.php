@@ -6,6 +6,7 @@ class Saude extends Eloquent {
 
 	protected $fillable = [
 							'datum',
+							'uhrzeit',
 							'gewicht',
 							'diastole',
                             'systole',

@@ -17,7 +17,7 @@ class SaudeController extends Controller
         //if(request()->has('status'))
         //    $tasks->whereStatus(request('status'));
 
-        //$tasks->orderBy(request('sortBy'),request('order'));
+        $daten->orderBy(request('sortBy'),request('order'));
 
 		return $daten->paginate(request('pageLength'));
 	}
