@@ -82,6 +82,7 @@
                 });
             },
             getTasks(){
+                debugger;
                 axios.get('/api/task/'+this.id)
                 .then(response => {
                     this.taskForm.title = response.data.title;
@@ -90,6 +91,13 @@
                     this.taskForm.due_date = response.data.due_date;
                     this.taskForm.progress = response.data.progress;
                 })
+                /* .then(function (response, x, y)  {
+                    this.taskForm.title = response.data.title;
+                    this.taskForm.description = response.data.description;
+                    this.taskForm.start_date = response.data.start_date;
+                    this.taskForm.due_date = response.data.due_date;
+                    this.taskForm.progress = response.data.progress;
+                }) */
                 .catch(response => {
                     toastr['error'](response.message);
                 });

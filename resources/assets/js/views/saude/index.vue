@@ -8,7 +8,7 @@
                 <li class="breadcrumb-item">
                     <router-link to="/home">Home</router-link>
                 </li>
-                <li class="breadcrumb-item active">Werte</li>
+                <li class="breadcrumb-item active">Blutdruck etc.</li>
             </ol>
         </div>
     </div>
@@ -60,8 +60,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <!-- <tr v-for="d in daten.data" :key="d.id"> -->
                                         <tr v-for="d in daten.data">
-
                                             <td>{{ d.datum | moment }}</td>
                                             <td v-text="d.uhrzeit"></td>
                                             <td v-text="d.gewicht"></td>
@@ -170,6 +170,7 @@ export default {
         },
 
         editData(saude) {
+            debugger;
             this.$router.push("/saude/" + saude.uuid + "/edit");
         }
 

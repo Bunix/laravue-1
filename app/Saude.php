@@ -14,4 +14,10 @@ class Saude extends Eloquent {
 						];
 	protected $primaryKey = 'id';
 	protected $table = 'saude';
+
+	protected $dates = [
+        'created_at',
+        'updated_at',
+        'datum'
+    ];
 }

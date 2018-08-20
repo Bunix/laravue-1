@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
+
 use Illuminate\Http\Request;
 use Validator;
 
@@ -41,6 +43,9 @@ class SaudeController extends Controller
         $task->user_id = $user->id;
         $task->save();
 
+        // funktioniert!!
+        // Log::info('SaudeController->store');
+
         return response()->json(['message' => 'Daten hinzugefügt!', 'data' => $task]);
     }
 
@@ -55,41 +60,44 @@ class SaudeController extends Controller
         return response()->json(['message' => 'Data deleted!']);
     } 
 
-  /*   public function show($id){
-        $task = \App\Task::whereUuid($id)->first();
+     public function show($id){
+        $task = \App\Saude::whereUuid($id)->first();
 
         if(!$task)
-            return response()->json(['message' => 'Couldnot find task!'],422);
+            return response()->json(['message' => 'Couldnot find Data!'],422);
 
         return $task;
-    } */
+    } 
 
-  /*   public function update(Request $request, $id){
+    public function update(Request $request, $id){      
 
-        $task = \App\Task::whereUuid($id)->first();
+        $task = \App\Saude::whereUuid($id)->first();
 
         if(!$task)
-            return response()->json(['message' => 'Couldnot find task!']);
+            return response()->json(['message' => 'Couldnot find data!']);
 
         $validation = Validator::make($request->all(), [
-            'title' => 'required|unique:tasks,title,'.$task->id.',id',
-            'description' => 'required',
-            'start_date' => 'required|date_format:Y-m-d',
-            'due_date' => 'required|date_format:Y-m-d|after:start_date'
+            //'title' => 'required|unique:tasks,title,'.$task->id.',id',
+            //'description' => 'required',
+            //'start_date' => 'required|date_format:Y-m-d',
+            //'due_date' => 'required|date_format:Y-m-d|after:start_date'
         ]);
 
         if($validation->fails())
             return response()->json(['message' => $validation->messages()->first()],422);
 
-        $task->title = request('title');
-        $task->description = request('description');
-        $task->start_date = request('start_date');
-        $task->due_date = request('due_date');
-        $task->progress = request('progress');
+        Log::debug('SaudeController->update:Gewicht='.request('gewicht'));
+        Log::debug('SaudeController->update:Uhrzeit='.request('uhrzeit'));    
+        $task->datum    = request('datum');
+        $task->uhrzeit  = request('uhrzeit');
+        $task->gewicht  = request('gewicht');
+        $task->diastole = request('diastole');
+        $task->systole  = request('systole');
+        $task->puls     = request('puls');
         $task->save();
 
-        return response()->json(['message' => 'Task updated!', 'data' => $task]);
-    } */
+        return response()->json(['message' => 'Daten geändert!', 'data' => $task]);
+    }
 
   
 }

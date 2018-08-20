@@ -75,7 +75,8 @@ export default {
   components: { datepicker,  VueTimepicker },
   props: ["id"],
   mounted() {
-    if (this.id) this.getValues();
+    debugger;
+    if (this.id) this.getData();
   },
   methods: {
    
@@ -105,21 +106,26 @@ export default {
           toastr["error"](response.message);
         }); 
     },
-    getData() {      
+    getData() {  
+       debugger;    
+       var _this = this;
        axios
-        .get("/api/saude/" + this.id)
-        .then(response => {          
-          this.saudeForm.datum = response.data.datum;
-          this.saudeForm.uhrzeit = response.data.uhrzeit;
-          this.saudeForm.gewicht = response.data.gewicht;
-          this.saudeForm.diastole = response.data.diastole;
-          this.saudeForm.systole = response.data.systole;
-          this.saudeForm.puls = response.data.puls;
+        .get("/api/saude/" + this.id)        
+        .then(function (response) {    
+          debugger;      
+          _this.saudeForm.datum     = response.data.datum;
+          let s = response.data.uhrzeit.split(':');
+          _this.saudeForm.uhrzeit   = { HH:s[0], mm: s[1]};         
+          _this.saudeForm.gewicht   = response.data.gewicht;
+          _this.saudeForm.diastole  = response.data.diastole;
+          _this.saudeForm.systole   = response.data.systole;
+          _this.saudeForm.puls      = response.data.puls;
         })
-        .catch(response => {
+        .catch(function (response) {
+          debugger;
           toastr["error"](response.message);
         }); 
-    },
+    },    
     updateData() {
       this.saudeForm
         .patch("/api/saude/" + this.id)
