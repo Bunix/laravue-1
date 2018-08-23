@@ -12,6 +12,9 @@
 */
 Route::get('/auth/social/{provider}', 'SocialAuthController@providerRedirect');
 Route::get('/auth/{provider}/callback', 'SocialAuthController@providerRedirectCallback');
+//http://localhost:8084/auth/github/callback
+//Route::get('auth/github', 'Auth\AuthController@redirectToProvider');
+//Route::get('auth/github/callback', 'Auth\AuthController@handleProviderCallback');
 
 Route::get('/{vue?}', function () {
     return view('home');

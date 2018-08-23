@@ -25,9 +25,14 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/social/token','SocialAuthController@getToken');
 });
 
+ //http://localhost:8084/auth/github/callback
+ //Route::get('auth/github', 'Auth\AuthController@redirectToProvider');
+ //Route::get('auth/github/callback', 'Auth\AuthController@handleProviderCallback');
+ Route::get('auth/github', 'AuthController@redirectToProvider');
+ Route::get('auth/github/callback', 'AuthController@handleProviderCallback');
+
 Route::group(['middleware' => ['jwt.auth']], function () {
   Route::get('/auth/user','AuthController@getAuthUser');
-
   Route::get('/task','TaskController@index');
   Route::get('/task/{id}','TaskController@show');
   Route::post('/task','TaskController@store');

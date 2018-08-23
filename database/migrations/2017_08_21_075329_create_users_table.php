@@ -24,6 +24,11 @@ class CreateUsersTable extends Migration
             $table->string('status',25)->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            // Cached from GitHub
+            $table->string('github_id')->default('');
+            $table->string('name')->default('');     
+            $table->string('avatar')->default('');
         });
     }
 
