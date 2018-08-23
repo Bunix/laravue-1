@@ -9,7 +9,7 @@ class SocialAuthController extends Controller
 {
     public function providerRedirect($provider = ''){
 
-        if(!in_array($provider,['facebook','twitter','github']))
+        if(!in_array($provider,['facebook','google','github']))
             return redirect('/login')->withErrors('This is not a valid link.');
 
         return Socialite::driver($provider)->redirect();
