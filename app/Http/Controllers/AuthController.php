@@ -229,17 +229,17 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function redirectToProvider()
+    /* public function redirectToProvider()
     {
         return Socialite::driver('github')->redirect();
-    }
+    } */
 
     /**
      * Obtain the user information from GitHub.
      *
      * @return Response
      */
-    public function handleProviderCallback()
+    /* public function handleProviderCallback()
     {
         try {
             $user = Socialite::driver('github')->user();
@@ -252,7 +252,7 @@ class AuthController extends Controller
         Auth::login($authUser, true);
 
         return Redirect::to('home');
-    }
+    } */
 
     /**
      * Return user if exists; create and return if doesn't
@@ -260,7 +260,7 @@ class AuthController extends Controller
      * @param $githubUser
      * @return User
      */
-    private function findOrCreateUser($githubUser)
+    /* private function findOrCreateUser($githubUser)
     {
         if ($authUser = User::where('github_id', $githubUser->id)->first()) {
             return $authUser;
@@ -272,5 +272,5 @@ class AuthController extends Controller
             'github_id' => $githubUser->id,
             'avatar' => $githubUser->avatar
         ]);
-    }
+    } */
 }
