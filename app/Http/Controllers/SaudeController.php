@@ -25,7 +25,7 @@ class SaudeController extends Controller
 	}
 
     public function store(Request $request){
-       
+
         $validation = Validator::make($request->all(), [
             //'title' => 'required|unique:tasks',
             //'description' => 'required',
@@ -58,7 +58,7 @@ class SaudeController extends Controller
         $task->delete();
 
         return response()->json(['message' => 'Data deleted!']);
-    } 
+    }
 
      public function show($id){
         $task = \App\Saude::whereUuid($id)->first();
@@ -67,9 +67,9 @@ class SaudeController extends Controller
             return response()->json(['message' => 'Couldnot find Data!'],422);
 
         return $task;
-    } 
+    }
 
-    public function update(Request $request, $id){      
+    public function update(Request $request, $id){
 
         $task = \App\Saude::whereUuid($id)->first();
 
@@ -87,17 +87,18 @@ class SaudeController extends Controller
             return response()->json(['message' => $validation->messages()->first()],422);
 
         Log::debug('SaudeController->update:Gewicht='.request('gewicht'));
-        Log::debug('SaudeController->update:Uhrzeit='.request('uhrzeit'));    
+        Log::debug('SaudeController->update:Uhrzeit='.request('uhrzeit'));
         $task->datum    = request('datum');
         $task->uhrzeit  = request('uhrzeit');
         $task->gewicht  = request('gewicht');
         $task->diastole = request('diastole');
         $task->systole  = request('systole');
-        $task->puls     = request('puls');
+		$task->puls     = request('puls');
+		$task->description     = request('description');
         $task->save();
 
         return response()->json(['message' => 'Daten geändert!', 'data' => $task]);
     }
 
-  
+
 }

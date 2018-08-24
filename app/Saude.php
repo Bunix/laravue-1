@@ -10,7 +10,8 @@ class Saude extends Eloquent {
 							'gewicht',
 							'diastole',
                             'systole',
-                            'puls'
+							'puls',
+							'description'
 						];
 	protected $primaryKey = 'id';
 	protected $table = 'saude';

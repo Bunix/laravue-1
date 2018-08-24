@@ -13,7 +13,7 @@ class CreateTableSaude extends Migration
      */
     public function up()
     {
-        Schema::create('saude', function (Blueprint $table) {           
+        Schema::create('saude', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('uuid',64)->nullable();
@@ -24,7 +24,8 @@ class CreateTableSaude extends Migration
             $table->decimal('gewicht',8,3);
             $table->integer('diastole');
             $table->integer('systole');
-            $table->integer('puls');
+			$table->integer('puls');
+			$table->string('description');
             $table->timestamps();
         });
     }

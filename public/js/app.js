@@ -27955,7 +27955,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -28023,88 +28023,96 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      saudeForm: new Form({
-        datum: "",
-        uhrzeit: {
-          HH: "06",
-          mm: "00"
-        },
-        //uhrzeit: "",
-        gewicht: 0,
-        diastole: 0,
-        systole: 0,
-        puls: 0
-      })
-    };
-  },
+	data: function data() {
+		return {
+			saudeForm: new Form({
+				datum: '',
+				uhrzeit: {
+					HH: '06',
+					mm: '00'
+				},
+				gewicht: 0,
+				diastole: 0,
+				systole: 0,
+				puls: 0,
+				description: ''
+			})
+		};
+	},
 
-  components: { datepicker: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker___default.a, VueTimepicker: __WEBPACK_IMPORTED_MODULE_1_vue2_timepicker___default.a },
-  props: ["id"],
-  mounted: function mounted() {
-    debugger;
-    if (this.id) this.getData();
-  },
+	components: { datepicker: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker___default.a, VueTimepicker: __WEBPACK_IMPORTED_MODULE_1_vue2_timepicker___default.a },
+	props: ['id'],
+	mounted: function mounted() {
+		if (this.id) this.getData();
+	},
 
-  methods: {
-    proceed: function proceed() {
-      this.saudeForm.datum = moment(this.saudeForm.datum).format("YYYY-MM-DD");
-      debugger;
-      //let hh = $("ul.hours").find(".active").html();
-      //let mm = $("ul.minutes").find(".active").html();
-      var hh = this.saudeForm.uhrzeit.HH;
-      var mm = this.saudeForm.uhrzeit.mm;
-      this.saudeForm.uhrzeit = hh + ":" + mm + ":00";
-      if (this.id) this.updateData();else this.storeData();
-    },
-    storeData: function storeData() {
-      var _this2 = this;
+	methods: {
+		proceed: function proceed() {
+			this.saudeForm.datum = moment(this.saudeForm.datum).format('YYYY-MM-DD');
+			var hh = this.saudeForm.uhrzeit.HH;
+			var mm = this.saudeForm.uhrzeit.mm;
+			this.saudeForm.uhrzeit = hh + ':' + mm + ':00';
+			if (this.id) this.updateData();else this.storeData();
+		},
+		storeData: function storeData() {
+			var _this2 = this;
 
-      this.saudeForm.post("/api/saude").then(function (response) {
-        debugger;
-        toastr["success"](response.message);
-        _this2.$emit("completed", response.saude);
-      }).catch(function (response) {
-        debugger;
-        toastr["error"](response.message);
-      });
-    },
-    getData: function getData() {
-      debugger;
-      var _this = this;
-      axios.get("/api/saude/" + this.id).then(function (response) {
-        debugger;
-        _this.saudeForm.datum = response.data.datum;
-        var s = response.data.uhrzeit.split(':');
-        _this.saudeForm.uhrzeit = { HH: s[0], mm: s[1] };
-        _this.saudeForm.gewicht = response.data.gewicht;
-        _this.saudeForm.diastole = response.data.diastole;
-        _this.saudeForm.systole = response.data.systole;
-        _this.saudeForm.puls = response.data.puls;
-      }).catch(function (response) {
-        debugger;
-        toastr["error"](response.message);
-      });
-    },
-    updateData: function updateData() {
-      var _this3 = this;
+			this.saudeForm.post('/api/saude').then(function (response) {
+				debugger;
+				toastr['success'](response.message);
+				_this2.$emit('completed', response.saude);
+			}).catch(function (response) {
+				debugger;
+				toastr['error'](response.message);
+			});
+		},
+		getData: function getData() {
+			debugger;
+			var _this = this;
+			axios.get('/api/saude/' + this.id).then(function (response) {
+				debugger;
+				_this.saudeForm.datum = response.data.datum;
+				var s = response.data.uhrzeit.split(':');
+				_this.saudeForm.uhrzeit = { HH: s[0], mm: s[1] };
+				_this.saudeForm.gewicht = response.data.gewicht;
+				_this.saudeForm.diastole = response.data.diastole;
+				_this.saudeForm.systole = response.data.systole;
+				_this.saudeForm.puls = response.data.puls;
+				_this.saudeForm.description = response.data.description;
+			}).catch(function (response) {
+				debugger;
+				toastr['error'](response.message);
+			});
+		},
+		updateData: function updateData() {
+			var _this3 = this;
 
-      this.saudeForm.patch("/api/saude/" + this.id).then(function (response) {
-        if (response.type == "error") toastr["error"](response.message);else {
-          _this3.$router.push("/saude");
-        }
-      }).catch(function (response) {
-        toastr["error"](response.message);
-      });
-    }
-  }
+			this.saudeForm.patch('/api/saude/' + this.id).then(function (response) {
+				if (response.type == 'error') toastr['error'](response.message);else {
+					_this3.$router.push('/saude');
+				}
+			}).catch(function (response) {
+				toastr['error'](response.message);
+			});
+		}
+	}
 });
 
 /***/ }),
@@ -29300,8 +29308,10 @@ var render = function() {
               })
             ],
             1
-          ),
-          _vm._v(" "),
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
           _c(
             "div",
             { staticClass: "form-group" },
@@ -29324,8 +29334,12 @@ var render = function() {
               })
             ],
             1
-          ),
-          _vm._v(" "),
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-3" }, [
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "" } }, [_vm._v("Gewicht")]),
             _vm._v(" "),
@@ -29353,7 +29367,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "col-md-3" }, [
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "" } }, [_vm._v("Diastole")]),
             _vm._v(" "),
@@ -29378,8 +29392,10 @@ var render = function() {
                 }
               }
             })
-          ]),
-          _vm._v(" "),
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "" } }, [_vm._v("Systole")]),
             _vm._v(" "),
@@ -29404,8 +29420,10 @@ var render = function() {
                 }
               }
             })
-          ]),
-          _vm._v(" "),
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3" }, [
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "" } }, [_vm._v("Puls")]),
             _vm._v(" "),
@@ -29427,6 +29445,36 @@ var render = function() {
                     return
                   }
                   _vm.$set(_vm.saudeForm, "puls", $event.target.value)
+                }
+              }
+            })
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "" } }, [_vm._v("Description")]),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.saudeForm.description,
+                  expression: "saudeForm.description"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", value: "", rows: "3" },
+              domProps: { value: _vm.saudeForm.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.saudeForm, "description", $event.target.value)
                 }
               }
             })
