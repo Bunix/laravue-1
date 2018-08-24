@@ -38,7 +38,7 @@ Route::group(['middleware' => ['jwt.auth']], function () {
   Route::post('/task','TaskController@store');
   Route::patch('/task/{id}','TaskController@update');
   Route::delete('/task/{id}','TaskController@destroy');
-  
+
   Route::post('/task/status','TaskController@toggleStatus');
 
   Route::get('/saude','SaudeController@index');
@@ -46,6 +46,8 @@ Route::group(['middleware' => ['jwt.auth']], function () {
   Route::post('/saude','SaudeController@store');
   Route::patch('/saude/{id}','SaudeController@update');
   Route::delete('/saude/{id}','SaudeController@destroy');
+
+  //Route::get('/saude/alle','SaudeController@getall');
 
     Route::get('/configuration/fetch','ConfigurationController@index');
     Route::post('/configuration','ConfigurationController@store');

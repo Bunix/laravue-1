@@ -38,7 +38,7 @@ let routes = [
             {
                 path: '/saude',
                 component: require('./views/saude/index')
-            },
+			},
             {
                 path: '/saude/:id/edit',
                 component: require('./views/saude/edit')

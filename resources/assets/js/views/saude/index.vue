@@ -42,7 +42,7 @@
                         </h5>
                     </div>
                     <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
-                        <div class="card-body">                        
+                        <div class="card-body">
                             <h4 class="card-title">Werteliste</h4>
                             <h6 class="card-subtitle" v-if="daten.total">Total {{daten.total}} result found!</h6>
                             <h6 class="card-subtitle" v-else>No result found!</h6>
@@ -60,8 +60,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- <tr v-for="d in daten.data" :key="d.id"> -->
-                                        <tr v-for="d in daten.data">
+                                        <tr v-for="d in daten.data" :key="d.id">
                                             <td>{{ d.datum | moment }}</td>
                                             <td v-text="d.uhrzeit"></td>
                                             <td v-text="d.gewicht"></td>
@@ -103,6 +102,28 @@
                     </div>
                 </div>
 
+				<!-- card 3 charts -->
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link nounderline" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                           <span>Charts</span>
+                        </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+                            Hallo!!
+
+							<ul>
+    							<li v-for="d in daten.data" :key="d.id">
+									{{ d.datum }} {{ d.gewicht }}
+								</li>
+							</ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -125,7 +146,8 @@ export default {
 
     data() {
         return {
-            daten: {},
+			daten: {},
+			alldata:{},
             filterDataForm: {
                 sortBy : 'datum',
                 order: 'desc',
@@ -137,17 +159,29 @@ export default {
     },
 
     created() {
-        this.getData();
+		this.getData();
+		this.getAll();
     },
 
     methods: {
+		getAll() {
+			 debugger;
+			 //.get("/api/saude/alle")
+			 axios
+                .get("/api/saude/0")
+				.then(function( response )
+					  { debugger;this.alldata = response.data;},
+					  (error) => { console.log(error);  }
+
+					  );
+		},
         getData(page) {
             if (typeof page === "undefined") {
                 page = 1;
             }
 
             let url = helper.getFilterURL(this.filterDataForm);
-
+			debugger;
             axios
                 .get("/api/saude?page=" + page + url)
                 .then(response => (this.daten = response.data));
@@ -170,7 +204,6 @@ export default {
         },
 
         editData(saude) {
-            debugger;
             this.$router.push("/saude/" + saude.uuid + "/edit");
         }
 
@@ -179,9 +212,8 @@ export default {
     filters: {
         moment(date) {
             let d = helper.formatDate(date);
-            debugger;
-            let dx = d.split("/"); 
-            return dx[1]+"/"+dx[0]+"/"+dx[2];          
+            let dx = d.split("/");
+            return dx[1]+"/"+dx[0]+"/"+dx[2];
         }
     }
 };

@@ -27717,7 +27717,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.nounderline:hover {\r\n    text-decoration: none;\n}\n.btn-group {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -ms-flex-pack: distribute;\r\n      justify-content: space-around;\n}\r\n", ""]);
+exports.push([module.i, "\n.nounderline:hover {\n    text-decoration: none;\n}\n.btn-group {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n", ""]);
 
 // exports
 
@@ -27847,6 +27847,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -27863,6 +27884,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             daten: {},
+            alldata: {},
             filterDataForm: {
                 sortBy: 'datum',
                 order: 'desc',
@@ -27874,10 +27896,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     created: function created() {
         this.getData();
+        this.getAll();
     },
 
 
     methods: {
+        getAll: function getAll() {
+            debugger;
+            //.get("/api/saude/alle")
+            axios.get("/api/saude/0").then(function (response) {
+                debugger;this.alldata = response.data;
+            }, function (error) {
+                console.log(error);
+            });
+        },
         getData: function getData(page) {
             var _this = this;
 
@@ -27886,7 +27918,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             var url = __WEBPACK_IMPORTED_MODULE_2__services_helper__["a" /* default */].getFilterURL(this.filterDataForm);
-
+            debugger;
             axios.get("/api/saude?page=" + page + url).then(function (response) {
                 return _this.daten = response.data;
             });
@@ -27905,7 +27937,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         editData: function editData(saude) {
-            debugger;
             this.$router.push("/saude/" + saude.uuid + "/edit");
         }
     },
@@ -27913,7 +27944,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     filters: {
         moment: function moment(date) {
             var d = __WEBPACK_IMPORTED_MODULE_2__services_helper__["a" /* default */].formatDate(date);
-            debugger;
             var dx = d.split("/");
             return dx[1] + "/" + dx[0] + "/" + dx[2];
         }
@@ -29610,7 +29640,7 @@ var render = function() {
                           _c(
                             "tbody",
                             _vm._l(_vm.daten.data, function(d) {
-                              return _c("tr", [
+                              return _c("tr", { key: d.id }, [
                                 _c("td", [
                                   _vm._v(_vm._s(_vm._f("moment")(d.datum)))
                                 ]),
@@ -29780,6 +29810,43 @@ var render = function() {
                 ])
               ]
             )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card" }, [
+            _vm._m(3),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "collapse",
+                attrs: {
+                  id: "collapseThree",
+                  "aria-labelledby": "headingThree",
+                  "data-parent": "#accordion"
+                }
+              },
+              [
+                _c("div", { staticClass: "card-body" }, [
+                  _vm._v(
+                    "\n                            Hallo!!\n\n\t\t\t\t\t\t\t"
+                  ),
+                  _c(
+                    "ul",
+                    _vm._l(_vm.daten.data, function(d) {
+                      return _c("li", { key: d.id }, [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t\t\t" +
+                            _vm._s(d.datum) +
+                            " " +
+                            _vm._s(d.gewicht) +
+                            "\n\t\t\t\t\t\t\t\t"
+                        )
+                      ])
+                    })
+                  )
+                ])
+              ]
+            )
           ])
         ])
       ])
@@ -29860,6 +29927,32 @@ var staticRenderFns = [
         _c("th", { staticStyle: { width: "180px" } }, [_vm._v("Action")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "card-header", attrs: { id: "headingThree" } },
+      [
+        _c("h5", { staticClass: "mb-0" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-link nounderline",
+              attrs: {
+                "data-toggle": "collapse",
+                "data-target": "#collapseThree",
+                "aria-expanded": "false",
+                "aria-controls": "collapseThree"
+              }
+            },
+            [_c("span", [_vm._v("Charts")])]
+          )
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
