@@ -15,6 +15,6 @@ class DatabaseSeeder extends Seeder
 		//factory(App\Saude::class, 10)->create()->each(function ($u) {
 		//	$u->posts()->save(factory(App\Post::class)->make());
 		//});
-		factory(App\Saude::class,'eins', 5)->create();
+		factory(App\Saude::class,'eins', 11)->create();
     }
 }

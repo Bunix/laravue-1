@@ -27717,7 +27717,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.nounderline:hover {\n    text-decoration: none;\n}\n.btn-group {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n", ""]);
+exports.push([module.i, "\n.nounderline:hover {\r\n    text-decoration: none;\n}\n.btn-group {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -ms-flex-pack: distribute;\r\n      justify-content: space-around;\n}\r\n", ""]);
 
 // exports
 
@@ -27888,8 +27888,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             filterDataForm: {
                 sortBy: 'datum',
                 order: 'desc',
-                //status: '',
-                //title: '',
                 pageLength: 5
             }
         };
@@ -27902,16 +27900,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         getAll: function getAll() {
-            debugger;
-            //.get("/api/saude/alle")
+
+            var _this = this;
             axios.get("/api/saude/0").then(function (response) {
-                debugger;this.alldata = response.data;
+                debugger;_this.alldata = response.data;
             }, function (error) {
                 console.log(error);
             });
         },
         getData: function getData(page) {
-            var _this = this;
+            var _this2 = this;
 
             if (typeof page === "undefined") {
                 page = 1;
@@ -27920,17 +27918,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var url = __WEBPACK_IMPORTED_MODULE_2__services_helper__["a" /* default */].getFilterURL(this.filterDataForm);
             debugger;
             axios.get("/api/saude?page=" + page + url).then(function (response) {
-                return _this.daten = response.data;
+                return _this2.daten = response.data;
             });
         },
         deleteData: function deleteData(d) {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.delete('/api/saude/' + d.id).then(function (response) {
 
                 toastr['success'](response.data.message);
 
-                _this2.getData();
+                _this3.getData();
             }).catch(function (error) {
 
                 toastr['error'](error.response.data.message);
@@ -29828,18 +29826,18 @@ var render = function() {
               [
                 _c("div", { staticClass: "card-body" }, [
                   _vm._v(
-                    "\n                            Hallo!!\n\n\t\t\t\t\t\t\t"
+                    "\r\n                            Hallo!!\r\n\r\n\t\t\t\t\t\t\t"
                   ),
                   _c(
                     "ul",
-                    _vm._l(_vm.daten.data, function(d) {
+                    _vm._l(_vm.alldata, function(d) {
                       return _c("li", { key: d.id }, [
                         _vm._v(
-                          "\n\t\t\t\t\t\t\t\t\t" +
+                          "\r\n\t\t\t\t\t\t\t\t\t" +
                             _vm._s(d.datum) +
                             " " +
                             _vm._s(d.gewicht) +
-                            "\n\t\t\t\t\t\t\t\t"
+                            "\r\n\t\t\t\t\t\t\t\t"
                         )
                       ])
                     })

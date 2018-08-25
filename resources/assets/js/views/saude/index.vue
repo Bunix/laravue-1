@@ -116,7 +116,7 @@
                             Hallo!!
 
 							<ul>
-    							<li v-for="d in daten.data" :key="d.id">
+    							<li v-for="d in alldata" :key="d.id">
 									{{ d.datum }} {{ d.gewicht }}
 								</li>
 							</ul>
@@ -150,9 +150,7 @@ export default {
 			alldata:{},
             filterDataForm: {
                 sortBy : 'datum',
-                order: 'desc',
-                //status: '',
-                //title: '',
+                order: 'desc',              
                 pageLength: 5
             }
         };
@@ -165,14 +163,13 @@ export default {
 
     methods: {
 		getAll() {
-			 debugger;
-			 //.get("/api/saude/alle")
+            	
+             let _this = this;	
 			 axios
                 .get("/api/saude/0")
 				.then(function( response )
-					  { debugger;this.alldata = response.data;},
+					  {  debugger;	_this.alldata = response.data;},
 					  (error) => { console.log(error);  }
-
 					  );
 		},
         getData(page) {
